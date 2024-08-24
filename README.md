@@ -1,5 +1,7 @@
-# Master's thesis Eindhoven University of Technology
 # Unraveling the sustainability of mode choice: A neighborhood sustainable mobility index for the Netherlands
+# Master's thesis Eindhoven University of Technology
+# Construction Management & Engineering (CME) and Urban Systems & Real Estate (USRE)
+# Department of the Built Environment
 # de Ruijsscher, J.
 # August 27, 2024
 
