@@ -1,4 +1,4 @@
-# ---------------------------------------- File 10_RF_metrics_2020 ---------------------------------------- #
+# ---------------------------------------- File 10_RF_metrics_2021 ---------------------------------------- #
 
 # Importing necessary libraries for this script
 import os
@@ -26,11 +26,11 @@ CLASS_NAMES = ['Car', 'public transport', 'Bike', 'Walk']
 
 def load_rf_data(script_dir):
     print('Loading the data...')
-    X_train = pickle.load(open(os.path.join(script_dir, 'output/RF_2020/X_train.pkl'), 'rb'))
-    X_test = pickle.load(open(os.path.join(script_dir, 'output/RF_2020/X_test.pkl'), 'rb'))
-    y_train = pickle.load(open(os.path.join(script_dir, 'output/RF_2020/y_train.pkl'), 'rb'))
-    y_test = pickle.load(open(os.path.join(script_dir, 'output/RF_2020/y_test.pkl'), 'rb'))
-    rf = pickle.load(open(os.path.join(script_dir, 'output/RF_2020/random_forest_model.pkl'), 'rb'))
+    X_train = pickle.load(open(os.path.join(script_dir, 'output/RF_2021/X_train.pkl'), 'rb'))
+    X_test = pickle.load(open(os.path.join(script_dir, 'output/RF_2021/X_test.pkl'), 'rb'))
+    y_train = pickle.load(open(os.path.join(script_dir, 'output/RF_2021/y_train.pkl'), 'rb'))
+    y_test = pickle.load(open(os.path.join(script_dir, 'output/RF_2021/y_test.pkl'), 'rb'))
+    rf = pickle.load(open(os.path.join(script_dir, 'output/RF_2021/random_forest_model.pkl'), 'rb'))
 
     print('Data loaded successfully!')
     return X_train, X_test, y_train, y_test, rf
@@ -102,7 +102,7 @@ def generate_report(rf, X_test, y_test, CLASS_NAMES):
     metrics_df = pd.DataFrame(metrics)
 
     # Save the metrics to an .xlsx file
-    metrics_df.to_excel('output/RF_2020/metrics/metrics_report.xlsx', index=False)
+    metrics_df.to_excel('output/RF_2021/metrics/metrics_report.xlsx', index=False)
     
     print('Classification report generated successfully!')
 
@@ -152,11 +152,11 @@ def generate_beeswarm_plot(shap_values_per_class, X_test_sample, rf, feature_nam
         shap.summary_plot(shap_values_per_class[i], X_test_sample, show=False, feature_names=feature_names)
         plt.title(f'SHAP Values for Class: {class_name_verbose} ({i})')
         plt.tight_layout()
-        plt.savefig(f'output/RF_2020/metrics/shap_beeswarm_plot_{class_name_verbose}.png', dpi=300)
+        plt.savefig(f'output/RF_2021/metrics/shap_beeswarm_plot_{class_name_verbose}.png', dpi=300)
         plt.close()
 
 def retrieve_feature_names():
-    data_sample = pd.read_pickle("output/8_merge_mobility_BE_2020.pkl")
+    data_sample = pd.read_pickle("output/8_merge_mobility_BE_2021.pkl")
     feature_names = data_sample.drop(['Trip_transportation_type', 'neighborhoodname'], axis=1).columns.tolist()
     return feature_names
 
@@ -174,8 +174,8 @@ def generate_shap_report(shap_values_per_class, rf, feature_names):
         shap_report_df[class_name_verbose] = shap_values_per_class[i].mean(axis=0)
 
     # Save the DataFrame to an XLSX file
-    shap_report_df.to_excel('output/RF_2020/metrics/shap_report_2020.xlsx')
-    print('SHAP report saved to output/RF_2020/metrics/shap_report_2020.xlsx')
+    shap_report_df.to_excel('output/RF_2021/metrics/shap_report_2021.xlsx')
+    print('SHAP report saved to output/RF_2021/metrics/shap_report_2021.xlsx')
 
 def save_top_features(shap_values_per_class, feature_names, top_n):
     print('Calculating and saving top features based on SHAP values for a multiclass problem...')
@@ -195,18 +195,18 @@ def save_top_features(shap_values_per_class, feature_names, top_n):
     top_features_names = [feature_names[i] for i in top_features_indices_set]
 
     # Ensure the output directory exists
-    output_dir = 'output/RF_2020/metrics'
+    output_dir = 'output/RF_2021/metrics'
     os.makedirs(output_dir, exist_ok=True)
 
     # Save the names of the top features to a text file
-    output_file_path = os.path.join(output_dir, f'top_{top_n}_features_2020.txt')
+    output_file_path = os.path.join(output_dir, f'top_{top_n}_features_2021.txt')
     with open(output_file_path, 'w') as file:
         for feature_name in top_features_names:
             file.write(f"{feature_name}\n")
 
     print(f"Saved top features to {output_file_path}")
    
-def calculate_feature_importances(rf, X_test, y_test, feature_names, output_file_FI='output/RF_2020/metrics/feature_importance_report_2020.xlsx'):
+def calculate_feature_importances(rf, X_test, y_test, feature_names, output_file_FI='output/RF_2021/metrics/feature_importance_report_2021.xlsx'):
     # Calculate feature importances from the model
     feature_importances = rf.feature_importances_
     
@@ -292,7 +292,7 @@ def generate_partial_dependence_plots(shap_values, X_test_sample, rf, feature_na
                 ax.set_title(f'PDP for {class_name} - {safe_feature_name}')
                 ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x:.0f}'))  # Remove weird dashes
                 plt.tight_layout()
-                output_dir = f'output/RF_2020/metrics/pdp_{class_name}_{safe_feature_name}'
+                output_dir = f'output/RF_2021/metrics/pdp_{class_name}_{safe_feature_name}'
                 os.makedirs(os.path.dirname(output_dir), exist_ok=True)
                 plt.savefig(f'{output_dir}.png', dpi=300)
             except ValueError as e:
@@ -337,14 +337,14 @@ def plot_roc_curves(rf, X_test, y_test, CLASS_NAMES):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic (ROC) Curves')
     plt.legend(loc="lower right")
-    plt.savefig('output/RF_2020/metrics/roc_curves.png')
+    plt.savefig('output/RF_2021/metrics/roc_curves.png')
     plt.close()
     
     # Save AUC values to an .xlsx file
     auc_df = pd.DataFrame.from_dict(roc_auc, orient='index', columns=['AUC'])
     auc_df.index = CLASS_NAMES
-    os.makedirs('output/RF_2020/metrics', exist_ok=True)
-    auc_df.to_excel('output/RF_2020/metrics/auc_values.xlsx')
+    os.makedirs('output/RF_2021/metrics', exist_ok=True)
+    auc_df.to_excel('output/RF_2021/metrics/auc_values.xlsx')
     
     print('ROC curves and AUC calculated and plotted successfully!')
 
@@ -366,8 +366,8 @@ if __name__ == '__main__':
     X_test_sample = X_test.sample(frac=SHAP_SAMPLE_FRAC, random_state=RANDOM_STATE)
 
     # Set file paths
-    shap_values_file = os.path.join(script_dir, 'output/RF_2020/metrics/shap_values.pkl')
-    output_file_FI = os.path.join(script_dir, 'output/RF_2020/metrics/feature_importance_report_2020.xlsx')
+    shap_values_file = os.path.join(script_dir, 'output/RF_2021/metrics/shap_values.pkl')
+    output_file_FI = os.path.join(script_dir, 'output/RF_2021/metrics/feature_importance_report_2021.xlsx')
 
     # Calculate or load SHAP values
     if SHAP_RECALCULATE:
