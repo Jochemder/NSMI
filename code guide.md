@@ -3,6 +3,7 @@
 # Construction Management & Engineering (CME) and Urban Systems & Real Estate (USRE)
 # Department of the Built Environment
 # de Ruijsscher, J.
+# academic year 2023-2024
 # August 27, 2024
 
 ## Link to publication 
@@ -19,7 +20,7 @@ Contact: jdruijsscher@gmail.com
 Follow the steps in the folders. The folders indicate the proper steps. 
 
 ## Author and acknowledgment
-APA reference: de Ruijsscher, J. (2024). _Unraveling the sustainability of mode choice: A neighborhood sustainable mobility index for the Netherlands_ [Master's thesis]. Eindhoven University of Technology. Retrieved from: https://research.tue.nl/en/studentTheses/
+APA reference: de Ruijsscher, J. (2024). _Unraveling the sustainability of mode choice: A neighborhood sustainable mobility index for the Netherlands_ [dissertation]. https://research.tue.nl/en/studentTheses/
 
 ## License
 This Master’s thesis has been carried out in accordance with the rules of the TU/e Code of Scientific Integrity and is public information. 
